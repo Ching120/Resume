@@ -1,83 +1,94 @@
+
 <template>
-  <div class="resume">
+  <div class="container">
+    <div class="resume">
+      <!-- 個人資料 -->
+      <section>
+        <h2>🧚🏻‍♀️個人資料</h2>
+        <div class="profile-image">
+          <img :src="personalInfo.profileImage" alt="個人照片">
+        </div>
+        <div class="personal-info">
+          <p><strong>姓名:</strong> {{ personalInfo.name }}</p>
+          <p><strong>英文名:</strong> {{ personalInfo.englishName }}</p>
+          <p><strong>聯絡信箱:</strong> {{ personalInfo.email }}</p>
+          <p><strong>聯絡電話:</strong> {{ personalInfo.phone }}</p>
+        </div>
+      </section>
 
-    <!-- 個人資料 -->
-    <section>
-      <h2>🧚🏻‍♀️個人資料</h2>
-      <div class="profile-image">
-        <img :src="personalInfo.profileImage" alt="個人照片">
-      </div>
-      <div class="personal-info">
-        <p><strong>姓名:</strong> {{ personalInfo.name }}</p>
-        <p><strong>英文名:</strong> {{ personalInfo.englishName }}</p>
-        <p><strong>聯絡信箱:</strong> {{ personalInfo.email }}</p>
-        <p><strong>聯絡電話:</strong> {{ personalInfo.phone }}</p>
-      </div>
-    </section>
+      <!-- 簡歷 -->
+      <section>
+        <h2>📜簡歷</h2>
+        <p>{{ resumeContent }}</p>
+      </section>
 
-    <!-- 簡歷 -->
-    <section>
-      <h2>📜簡歷</h2>
-      <p>{{ resumeContent }}</p>
-    </section>
+      <!-- 工作經驗 -->
+      <section>
+        <h2>👩🏻‍💻工作經驗</h2>
+        <ul class="experience-list">
+          <li v-for="(experience, index) in workExperience" :key="index">
+            <strong>{{ experience.company }}:</strong> {{ experience.position }} - {{ experience.date }}
+          </li>
+        </ul>
+      </section>
 
-    <!-- 工作經驗 -->
-    <section>
-      <h2>👩🏻‍💻工作經驗</h2>
-      <ul class="experience-list">
-        <li v-for="(experience, index) in workExperience" :key="index">
-          <strong>{{ experience.company }}:</strong> {{ experience.position }} - {{ experience.date }}
-        </li>
-      </ul>
-    </section>
+      <!-- 專案與作品集 -->
+      <section>
+        <h2>📂專案與作品集</h2>
+        <ul class="projects-list">
+          <li v-for="(project, index) in projects" :key="index">
+            <strong>{{ project.name }}:</strong> {{ project.description }}
+          </li>
+          <!-- 添加其他專案和作品集項目 -->
+        </ul>
+      </section>
 
-    <!-- 專案與作品集 -->
-    <section>
-      <h2>📂專案與作品集</h2>
-      <ul class="projects-list">
-        <li v-for="(project, index) in projects" :key="index">
-          <strong>{{ project.name }}:</strong> {{ project.description }}
-        </li>
-        <!-- 添加其他專案和作品集項目 -->
-      </ul>
-    </section>
+      <!-- 學歷 -->
+      <section>
+        <h2>🎒學歷</h2>
+        <ul class="education-list">
+          <li v-for="(education, index) in educationHistory" :key="index">
+            <strong>{{ education.school }}:</strong> {{ education.degree }} - {{ education.date }}
+          </li>
+          <!-- 添加其他學歷項目 -->
+        </ul>
+      </section>
 
-    <!-- 學歷 -->
-    <section>
-      <h2>🎒學歷</h2>
-      <ul class="education-list">
-        <li v-for="(education, index) in educationHistory" :key="index">
-          <strong>{{ education.school }}:</strong> {{ education.degree }} - {{ education.date }}
-        </li>
-        <!-- 添加其他學歷項目 -->
-      </ul>
-    </section>
+      <!-- 專業技能 -->
+      <section>
+        <h2>⚒️專業技能</h2>
+        <ul class="skills-list">
+          <li v-for="(skill, index) in skills" :key="index">{{ skill }}</li>
+          <!-- 添加其他專業技能項目 -->
+        </ul>
+      </section>
 
-    <!-- 專業技能 -->
-    <section>
-      <h2>⚒️專業技能</h2>
-      <ul class="skills-list">
-        <li v-for="(skill, index) in skills" :key="index">{{ skill }}</li>
-        <!-- 添加其他專業技能項目 -->
-      </ul>
-    </section>
-
-    <!-- 語言能力 -->
-    <section>
-      <h2>🗣️語言能力</h2>
-      <ul class="languages-list">
-        <li v-for="(language, index) in languages" :key="index">
-          <strong>{{ language.name }}:</strong> {{ language.proficiency }}
-        </li>
-        <!-- 添加其他語言能力項目 -->
-      </ul>
-    </section>
+      <!-- 語言能力 -->
+      <section>
+        <h2>🗣️語言能力</h2>
+        <ul class="languages-list">
+          <li v-for="(language, index) in languages" :key="index">
+            <strong>{{ language.name }}:</strong> {{ language.proficiency }}
+          </li>
+          <!-- 添加其他語言能力項目 -->
+        </ul>
+      </section>
+    </div>
+    <div id="message-board-container" style="padding-left: 10%;">
+      <MessageBoard />
+    </div>
   </div>
 </template>
 
 
 <script>
+import MessageBoard from './components/MessageBoard.vue';
+
 export default {
+  name: 'MyResume',
+  components: {
+    MessageBoard
+  },
   data() {
     return {
       personalInfo: {
@@ -148,15 +159,15 @@ export default {
       ],
       skills: ["程式語言：HTML、 CSS 、 JavaScript 、 PHP 、jQuery", "其他：Git、API、Photoshop、Figma", "資料庫：MySQL、 SQL Server", "框架：ASP.NET MVC"],
       languages: [
-          {
-            name: "國語",
-            proficiency: "熟練程度 高",
-          },
-          {
-            name: "英文",
-            proficiency: "熟緷程度 低",
-          },
-        ],
+        {
+          name: "國語",
+          proficiency: "熟練程度 高",
+        },
+        {
+          name: "英文",
+          proficiency: "熟緷程度 低",
+        },
+      ],
     };
   },
 };
@@ -235,6 +246,21 @@ languages-list li {
 .projects-list li strong,
 education-list li strong {
   color: #555;
+}
+
+.container {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.resume,
+.message-board-container {
+  flex: 1;
+  /* 让两个容器占据相同的空间 */
+  max-width: 800px;
+  /* 或者根据需要设置最大宽度 */
 }
 </style>
 
