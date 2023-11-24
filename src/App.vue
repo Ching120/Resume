@@ -165,7 +165,7 @@ export default {
         },
         {
           name: "英文",
-          proficiency: "熟緷程度 低",
+          proficiency: "熟練程度 低",
         },
       ],
     };
@@ -173,7 +173,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
 .resume {
   font-family: Arial, sans-serif;
   max-width: 800px;
