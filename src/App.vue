@@ -14,6 +14,15 @@
           <p><strong>聯絡信箱:</strong> {{ personalInfo.email }}</p>
           <p><strong>聯絡電話:</strong> {{ personalInfo.phone }}</p>
         </div>
+          <div>
+      <div class="flex justify-between">
+        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+        <span class="text-sm leading-6 text-gray-500" id="email-optional">Optional</span>
+      </div>
+      <div class="mt-2">
+        <input type="email" name="email" id="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="you@example.com" aria-describedby="email-optional" />
+      </div>
+    </div>
       </section>
 
       <!-- 簡歷 -->
@@ -64,7 +73,7 @@
       </section>
 
       <!-- 語言能力 -->
-      <section>
+      <section >
         <h2>🗣️語言能力</h2>
         <ul class="languages-list">
           <li v-for="(language, index) in languages" :key="index">
@@ -76,6 +85,15 @@
     </div>
     <div id="message-board-container" style="padding-left: 10%;">
       <MessageBoard />
+    </div>
+  </div>
+  <div>
+    <div class="flex justify-between">
+      <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+      <span class="text-sm leading-6 text-gray-500" id="email-optional">Optional</span>
+    </div>
+    <div class="mt-2">
+      <input type="email" name="email" id="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="you@example.com" aria-describedby="email-optional" />
     </div>
   </div>
 </template>
