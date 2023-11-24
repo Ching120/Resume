@@ -14,15 +14,6 @@
           <p><strong>聯絡信箱:</strong> {{ personalInfo.email }}</p>
           <p><strong>聯絡電話:</strong> {{ personalInfo.phone }}</p>
         </div>
-          <div>
-      <div class="flex justify-between">
-        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
-        <span class="text-sm leading-6 text-gray-500" id="email-optional">Optional</span>
-      </div>
-      <div class="mt-2">
-        <input type="email" name="email" id="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="you@example.com" aria-describedby="email-optional" />
-      </div>
-    </div>
       </section>
 
       <!-- 簡歷 -->
@@ -87,15 +78,6 @@
       <MessageBoard />
     </div>
   </div>
-  <div>
-    <div class="flex justify-between">
-      <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
-      <span class="text-sm leading-6 text-gray-500" id="email-optional">Optional</span>
-    </div>
-    <div class="mt-2">
-      <input type="email" name="email" id="email" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="you@example.com" aria-describedby="email-optional" />
-    </div>
-  </div>
 </template>
 
 
@@ -116,7 +98,7 @@ export default {
         email: "Yiqing120405@gmail.com",
         phone: "0978009951"
       },
-      resumeContent: "我叫做陳意晴，可以叫我晴，目前就讀國立臺中科技大學-資訊管理系，個性謹慎、熱愛學習，我的興趣是美術設計所以喜歡將設計和技術結合，擅長的是前端設計，熟悉技術的部份，程式語言包含HTML、CSS、Java Script和PHP，其他的部份包含API介接、RWD響應式網頁、Photoshop及Figma應用，也有使用過Git，在過去有兩項專案開發的經驗，一項是五專時期製作的宿舍管理系統，主要是為了解決紙張的浪費，及解決使用者及管理者在申請流程上更便利而將系統線上化，這個專案中我主要負責教官權限的功能規劃、前後端開發以及High charts圖表介接，另一項是近期開發的啤酒商行形象網站，主要負責前端功能規劃及開發、API介接(Axios)、Figma設計、Banner及內容圖片設計與RWD響應式網頁，希望參加這個培訓能讓我提升自己的綜合能力及實務能力，並不斷超越自我，在未來能成為更有競爭力的人🧙🏻",
+      resumeContent: "我叫做陳意晴，可以叫我Ching，目前就讀國立臺中科技大學-資訊管理系，個性謹慎、熱愛學習，我的興趣是美術設計所以喜歡將設計和技術結合，擅長的是前端設計，熟悉技術的部份，程式語言包含HTML、CSS、Java Script和PHP，其他的部份包含API介接、RWD響應式網頁、Photoshop及Figma應用，也有使用過Git，在過去有兩項專案開發的經驗，一項是五專時期製作的宿舍管理系統，主要是為了解決紙張的浪費，及解決使用者及管理者在申請流程上更便利而將系統線上化，這個專案中我主要負責教官權限的功能規劃、前後端開發以及High charts圖表介接，另一項是近期開發的啤酒商行形象網站，主要負責前端功能規劃及開發、API介接(Axios)、Figma設計、Banner及內容圖片設計與RWD響應式網頁，希望參加這個培訓能讓我提升自己的綜合能力及實務能力，並不斷超越自我，在未來能成為更有競爭力的人🧙🏻",
 
       workExperience: [
         {
@@ -173,7 +155,6 @@ export default {
           degree: "學士",
           date: "2024/06",
         },
-        // 添加其他學歷項目
       ],
       skills: ["程式語言：HTML、 CSS 、 JavaScript 、 PHP 、jQuery", "其他：Git、API、Photoshop、Figma", "資料庫：MySQL、 SQL Server", "框架：ASP.NET MVC"],
       languages: [
@@ -276,9 +257,7 @@ education-list li strong {
 .resume,
 .message-board-container {
   flex: 1;
-  /* 让两个容器占据相同的空间 */
   max-width: 800px;
-  /* 或者根据需要设置最大宽度 */
 }
 </style>
 

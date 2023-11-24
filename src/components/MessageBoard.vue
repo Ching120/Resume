@@ -2,7 +2,7 @@
     <div>
         <h1>留言板</h1>
         <div v-for="message in messages" :key="message.id">
-            <p>{{ message.text }}&nbsp;
+            <p>{{ message.user_message }}&nbsp;
             <button @click="deleteMessage(message.id)">刪除</button></p>
         </div>
         <input v-model="newMessage" placeholder="留言">&nbsp;
@@ -33,10 +33,10 @@ export default {
                 });
         },
         postMessage() {
-            axios.post('http://localhost:3000/api/messages', { text: this.newMessage })
+            axios.post('http://localhost:3000/api/messages', { user_message: this.newMessage })
                 .then(response => {
-                    this.messages.push(response.data);
-                    this.newMessage = ''; // 清空輸入框
+                    this.messages.push(response.data); 
+                    this.newMessage = ''; 
                 })
                 .catch(error => {
                     console.error(error);
