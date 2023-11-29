@@ -3,41 +3,83 @@ const cors = require("cors");
 const app = express();
 const mysql = require("mysql2");
 
-app.use(cors()); // 启用CORS
-app.use(express.json()); // JSON请求
+
+app.use(cors()); 
+app.use(express.json()); 
 
 const pool = mysql.createPool({
   host: "localhost", // localhost
-  user: "root", //数据库用户名
-  password: "root", // 数据库密码
-  database: "message_board", // 数据库名称
+  user: "root", 
+  password: "root", 
+  database: "message_board", 
   port: 3307,
-  connectionLimit: 10, // 连接池大小
+  connectionLimit: 10, 
 });
 
-// 连接数据库
+
 pool.getConnection((err, connection) => {
   if (err) {
-    console.error("无法连接到mysql数据库：", err);
+    console.error("無法連接到mysql：", err);
     return;
   }
-  console.log("mysql数据库连接成功");
-  connection.release(); // 释放连接
+  console.log("mysql連接成功");
+  connection.release();
 });
 
-// 全局错误处理中间件
-app.use((err, req, res, next) => {
-  console.error("Error:", err);
-  res.status(500).json({ error: "Internal Server Error" });
+
+app.post("/api/login", (req, res) => {
+  const { user_id, user_pwd } = req.body;
+  pool.query(
+    "SELECT * FROM `user` WHERE `user_id` = ? AND `user_pwd` = ?",
+    [user_id, user_pwd],
+    (err, results) => {
+      if (err) {
+        console.error("Error querying MySQL:", err);
+        res.status(500).json({ message: "伺服器錯誤" });
+      } else {
+        if (results.length > 0) {
+          res.json({ message: "登入成功" });
+        } else {
+          res.status(401).json({ message: "無此用戶" });
+        }
+      }
+    }
+  );
 });
 
-// GET 获取所有留言
+app.post("/api/register", (req, res) => {
+  const { user_id, user_pwd, user_name } = req.body;
+
+  pool.query(
+    "INSERT INTO `user` (`user_id`, `user_pwd`, `user_name`) VALUES (?, ?, ?)",
+    [user_id, user_pwd, user_name],
+    (err, result) => {
+      if (err) {
+        console.error("Error inserting into MySQL:", err);
+        res.status(500).json({ message: "伺服器錯誤" });
+      } else {
+        if (result.affectedRows > 0) {
+          // 新增成功
+          const insertedUserId = result.insertId;
+          res.status(201).json({
+            message: "Registration successful",
+            userId: insertedUserId,
+          });
+        } else {
+          // 新增失敗
+          res.status(500).json({ message: "伺服器錯誤" });
+        }
+      }
+    }
+  );
+});
+
+
 app.get("/api/messages", (req, res, next) => {
-  // 使用 MySQL 查询获取留言
   pool.query("SELECT * FROM message", (err, results) => {
     if (err) {
       console.error("Error querying MySQL:", err);
-      next(err); // 使用错误处理中间件
+      next(err); 
     } else {
       res.json(results);
     }
@@ -50,11 +92,10 @@ app.post("/api/messages", (req, res, next) => {
     user_message: req.body.user_message,
   };
 
-  // 使用 MySQL 插入新留言
   pool.query("INSERT INTO message SET ?", newMessage, (err, result) => {
     if (err) {
       console.error("Error inserting into MySQL:", err);
-      next(err); // 使用错误处理中间件
+      next(err); 
     } else {
       newMessage.id = result.insertId;
       res.status(201).json(newMessage);
@@ -62,39 +103,36 @@ app.post("/api/messages", (req, res, next) => {
   });
 });
 
-// DELETE 删除特定 ID 的留言
+
 app.delete("/api/messages/:id", (req, res, next) => {
   const { id } = req.params;
 
-  // 使用 MySQL 删除留言
+
   pool.query("DELETE FROM message WHERE id = ?", [id], (err) => {
     if (err) {
       console.error("Error deleting from MySQL:", err);
-      next(err); // 使用错误处理中间件
+      next(err); 
     } else {
       res.status(204).end();
     }
   });
 });
 
-app.put("/api/messages/:messageId", (req, res, next) => {
-  const { messageId } = req.params;
-
-  // 获取从前端发送过来的编辑内容
-  const editMessage = {
+app.put("/api/messages/:id", (req, res, next) => {
+  const { id } = req.params;
+  const updatedMessage = {
     user_message: req.body.user_message,
   };
 
-  // 使用 MySQL 更新留言
   pool.query(
     "UPDATE message SET ? WHERE id = ?",
-    [editMessage, messageId],
-    (err, result) => {
+    [updatedMessage, id],
+    (err) => {
       if (err) {
         console.error("Error updating MySQL:", err);
         next(err);
       } else {
-        res.status(200).json(editMessage);
+        res.status(200).json(updatedMessage);
       }
     }
   );
